@@ -24,3 +24,71 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.heart {
+  position: absolute;
+  font-size: 2rem;
+  animation: float 3s infinite ease-in-out;
+  opacity: 0.7;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(10deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Efek polaroid */
+.polaroid {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.polaroid:hover {
+  transform: rotate(1deg);
+}
+
+/* Untuk foto yang diputar sedikit */
+.polaroid:nth-child(odd) {
+  transform: rotate(-1deg);
+}
+
+.polaroid:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+/* Efek melayang */
+.floating-card {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Efek melayang berbeda tiap kartu */
+.floating-card:nth-child(odd) {
+  animation-delay: 0.5s;
+}
+
+.floating-card:nth-child(even) {
+  animation-delay: 1s;
+}
+
+/* app/globals.css */
+@media (max-width: 640px) {
+  .max-h-\[300px\] {
+    max-height: 250px !important;
+  }
+  .p-6 {
+    padding: 1rem !important;
+  }
+}

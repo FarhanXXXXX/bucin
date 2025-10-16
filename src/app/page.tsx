@@ -1,103 +1,221 @@
-import Image from "next/image";
+// app/page.tsx
+'use client'
+
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { useState, useRef } from 'react'
+import Confetti from 'react-confetti'
+import HeartParticles from '@app/app/components/heartparticles' // Pastikan path ini benar
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause()
+      } else {
+        const playPromise = audioRef.current.play()
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.log('Gagal memutar audio:', error)
+          })
+        }
+      }
+      setIsPlaying(!isPlaying)
+    }
+  }
+
+  // Data foto & caption
+  const photos = [
+    '/images/5.jpg',
+    '/images/2.jpg',
+    '/images/3.jpg',
+    '/images/4.jpg',
+    '/images/1.jpg',
+    '/images/6.jpg',
+  ]
+
+  const captions = [
+    "Pertama kali ketemu, aku langsung jatuh hati.",
+    "Masih ingat senyummu.",
+    "Habis sakit langsung foto foto di kaca.",
+    "Minum mixue bareng, selalu seru dan bikin kangen.",
+    "Sama sama lagi sakit tapi nyempetin buat foto.",
+    "Mirror random, tapi selalu jadi kenangan manis.",
+  ]
+
+  // Pesan-pesan romantis
+  const messages = [
+    "Aku tak pernah pandai menjelaskan, tapi berbicara denganmu selalu terasa seperti pulang, dan kau mampu menyembuhkan segala suasana yang ada di hatiku.",
+    "Kamu adalah alasan kenapa senyumku selalu muncul tanpa diminta.",
+    "Aku tidak punya banyak orang di kehidupanku, jadi terima kasih telah meluangkan waktunya untuk sekedar cerita dan tertawa bersamaku.",
+    "Setelah banyak yang hilang, Tuhan tiba tiba memunculkan satu sosok tanpa aba aba, seseorang yang bikin aku berdoa diam diam 'kalau ini mimpi, jangan bangunkan dulu'.",
+    "Untukmu, doaku seluas langit, Terlepas dari terwujud atau tidak terwujud, akan selalu ada yang menginginkan agar kamu senantiasa diliputi hal hal baik."
+  ]
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 flex flex-col items-center justify-start p-6 relative overflow-hidden">
+      {/* 🔴 Efek hati melayang terus-menerus */}
+      <HeartParticles />
+
+      {/* Audio */}
+      <audio ref={audioRef} src="/music/penjaga hati.mp3" />
+
+      {/* 🎉 Partikel hati konfeti — hanya saat musik diputar */}
+      {isPlaying && (
+        <Confetti
+          width={typeof window !== 'undefined' ? window.innerWidth : 1000}
+          height={typeof window !== 'undefined' ? window.innerHeight : 600}
+          recycle={false}
+          numberOfPieces={50}
+          gravity={0.1}
+          colors={['#FF69B4', '#FF1493', '#DB7093', '#FFC0CB']}
+          initialVelocityY={-20}
+          onConfettiComplete={() => {}}
+          confettiSource={{
+            x: (typeof window !== 'undefined' ? window.innerWidth : 1000) / 2,
+            y: (typeof window !== 'undefined' ? window.innerHeight : 600) / 2,
+            w: 0,
+            h: 0,
+          }}
+          drawShape={(ctx) => {
+            ctx.beginPath()
+            ctx.moveTo(0, 0)
+            ctx.bezierCurveTo(-10, -15, 10, -15, 0, 0)
+            ctx.bezierCurveTo(10, 15, -10, 15, 0, 0)
+            ctx.closePath()
+            ctx.fill()
+          }}
+        />
+      )}
+
+      {/* Header + Foto Utama */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        className="text-center mb-10 mt-8"
+      >
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-xl mx-auto mb-6"
+        >
+          <Image
+            src="/images/7.jpg"
+            alt="Kita berdua"
+            fill
+            className="object-cover"
+          />
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-4xl md:text-6xl font-bold text-rose-800 mb-4"
+        >
+          Untuk orang yang aku sayang ❤️
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="text-lg text-gray-700 max-w-md mx-auto"
+        >
+          Setiap momen bersamamu adalah hadiah terindah dalam hidupku.
+        </motion.p>
+      </motion.div>
+
+      {/* Tombol Musik */}
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={toggleMusic}
+        className="mt-4 p-3 rounded-full bg-rose-500 text-white shadow-lg flex items-center gap-2 z-10"
+        aria-label={isPlaying ? 'Jeda lagu' : 'Putar lagu'}
+      >
+        {isPlaying ? '⏸️' : '▶️'} Lagu Kita
+      </motion.button>
+
+      {/* Bagian Kenangan Kita */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1 }}
+        className="w-full mt-12 px-4"
+      >
+        <h2 className="text-3xl font-bold text-center text-rose-800 mb-8">Kenangan Kita ❤️</h2>
+
+        {/* Grid 3 Kolom */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {photos.map((src, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                delay: idx * 0.1,
+                duration: 0.6,
+                ease: 'easeOut',
+              }}
+              whileHover={{
+                scale: 1.03,
+                y: -5,
+                boxShadow: '0 10px 25px rgba(255, 105, 180, 0.3)',
+              }}
+              whileTap={{ scale: 0.97 }}
+              className="cursor-pointer group"
+            >
+              {/* Bingkai Photo Booth */}
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden border-4 border-white p-2 relative group-hover:shadow-xl transition-shadow duration-300">
+                {/* Foto dengan object-contain — tidak terpotong */}
+                <div className="relative w-full min-h-[200px] rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
+                  <Image
+                    src={src}
+                    alt={`Foto kenangan ${idx + 1}`}
+                    fill
+                    className="object-contain p-2 max-w-full max-h-full"
+                    priority={idx === 0}
+                  />
+                </div>
+                <div className="mt-3 p-2 bg-rose-50 text-gray-700 text-sm rounded-b-lg">
+                  {captions[idx]}
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </motion.div>
+
+      {/* Bagian Pesan untukmu */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.5 }}
+        className="w-full mt-16 px-4 pb-12"
+      >
+        <h2 className="text-3xl font-bold text-center text-rose-800 mb-8">Pesan untukmu 💖</h2>
+
+        <div className="max-w-2xl mx-auto space-y-6">
+          {messages.map((msg, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.6 + idx * 0.2, duration: 0.6 }}
+              className="bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-rose-100"
+            >
+              <p className="text-gray-800 text-lg italic">"{msg}"</p>
+              <div className="text-right mt-2 text-rose-600 font-medium">— Untukmu ❤️</div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </div>
-  );
+  )
 }
