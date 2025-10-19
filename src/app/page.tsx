@@ -35,6 +35,15 @@ export default function Home() {
     '/images/4.jpg',
     '/images/1.jpg',
     '/images/6.jpg',
+    '/images/8.png',
+    '/images/9.png',
+    '/images/10.png',
+    '/images/11.jpg',
+    '/images/12.jpg',
+    '/images/13.jpg',
+    '/images/14.jpg',
+    '/images/15.jpg',
+    '/images/16.png',
   ]
 
   const captions = [
@@ -44,6 +53,15 @@ export default function Home() {
     "Minum mixue bareng, selalu seru dan bikin kangen.",
     "Sama sama lagi sakit tapi nyempetin buat foto.",
     "Mirror random, tapi selalu jadi kenangan manis.",
+    "Main pertama kali diluar KKN.",
+    "Ceritanya sih ngurus yang sakit, padahal sendiri juga lagi sakit wkwkwk.",
+    "Otw ke gunung.",
+    "Walaupun sakit tetep selfie.",
+    "Pertama kali ketemu ayah ibu langsung.",
+    "Bikin kolase foto.",
+    "Walau tumbang tetep senyum.",
+    "Pose Favorit.",
+    "Yang ngurusnya tumbang juga akhirnya diurus balik wkwkwk.",
   ]
 
   // Pesan-pesan romantis
@@ -52,7 +70,10 @@ export default function Home() {
     "Kamu adalah alasan kenapa senyumku selalu muncul tanpa diminta.",
     "Aku tidak punya banyak orang di kehidupanku, jadi terima kasih telah meluangkan waktunya untuk sekedar cerita dan tertawa bersamaku.",
     "Setelah banyak yang hilang, Tuhan tiba tiba memunculkan satu sosok tanpa aba aba, seseorang yang bikin aku berdoa diam diam 'kalau ini mimpi, jangan bangunkan dulu'.",
-    "Untukmu, doaku seluas langit, Terlepas dari terwujud atau tidak terwujud, akan selalu ada yang menginginkan agar kamu senantiasa diliputi hal hal baik."
+    "Untukmu, doaku seluas langit, Terlepas dari terwujud atau tidak terwujud, akan selalu ada yang menginginkan agar kamu senantiasa diliputi hal hal baik.",
+    "Aku merasa sangat dihargai. Semoga aku juga bisa membuat kamu merasa dihargai.",
+    "Kalau mau cerita, aku ada di sini. Tapi kalau butuh waktu sendiri, take your time.",
+    "Terima kasih sudah berkenan menerima ketidaksempurnaanku. Aku usahakan jadi lebih baik lagi."
   ]
 
   return (
